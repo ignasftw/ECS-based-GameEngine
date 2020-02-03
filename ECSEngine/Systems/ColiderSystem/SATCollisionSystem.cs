@@ -9,60 +9,51 @@ using Microsoft.Xna.Framework;
 namespace ECSEngine.Systems.ColiderSystem
 
 /*
- * This class was reconstructed by using a reference included in:
+ * REFERENCES:
+ * 
+ * *NOT USED*
     Charry, J. (2017). Building a Physics Engine, Pt. 10 - Collision Detection using Separating Axis Theorem (SAT)
     [online] Jcharry.com. Available at: https://jcharry.com/blog/physengine10 [Accessed 3 Feb. 2020].
-*/
+
+    William Bittle (2010). SAT (Separating Axis Theorem)
+    [online] Available at: http://www.dyn4j.org/2010/01/sat/ [Accessed 3 Feb. 2020].
+ */
 {
-    public static class SATCollisionSystem
+    public class SATCollisionSystem
     {
-        const SAT;
 
-        /// <summary>
-        ///METHOD: This method checks 2 shapes and redirects to proper collision test
-        /// </summary>
-        void intersect(Collider a1, Collider b1)
+        //AABB(Rectangle) only needs 2 axes which should be normals of shape's edges
+        Vector2[] Axes = new Vector2[2];
+
+
+        /*
+         Every Update shapes should check either they are colliding
+         By cheking axis which are normals of the shapes
+         */
+        bool Intersect(Collider a1, Collider b1)
         {
-            /* CASE 1 interaction
-             *  
-             *  Rectangle OR Polygon
-             *  interacts with other shapes
-            */
 
-            //Rectangle/Polygon collides with Circle
-            if (a1 is RectCollider || a1 is PolygonCollider)
+            for (int i = 0; i < Axes.Length; i++)
             {
-                if (b1 is CircleCollider)
-                {
-                    polycircle(a1, b1);
-                    break;
-                }
-
-                //Rectangle/Polygon with
-                //Rectangle/Polygon
-                polypoly(a1, b1);
-                break;
+                Vector2 axis = Axes[i];
             }
 
-            /* CASE 2 interaction
-             *  
-             *  Circle 
-             *  interacts with other shapes
-            */
+            //Project both shapes into axis
 
-            //Circle collides with circle
-            if (a1 is CircleCollider)
+            //Projection p1 = shape1.project(axis);
+            //Projection p2 = shape2.project(axis);
+
+            //do the projections overlap
+            /*!p1.overlap(p2)* does axis1 overlap with axis2 */
+            if (false && true)
             {
-                if (b1 is CircleCollider)
-                {
-                    circlecircle(a1, b1);
-                    break;
-                }
-                //Circle with
-                //Rectangle/Polygon
-                polycircle(a1, b1);
-                break;
+                //One of axis does NOT overlap
+                return false;
             }
+
+            //If every axis didn't return false then
+            //very likely that the intersection occurs
+            return true;
         }
 
 
@@ -77,10 +68,10 @@ namespace ECSEngine.Systems.ColiderSystem
          * ELSE
          * return new Vector2(0,0);
         */
-        void circlecircle(CircleCollider a1, CircleCollider b1)
+        void Circlecircle(CircleCollider a1, CircleCollider b1)
         {
             //Declairing a Vector2, which will store a vector between two centers, call it 'v1'
-            Vector2 v1 = Vector2.Subtract(a1.GetCenter,b1.GetCenter);
+            Vector2 v1 = Vector2.Subtract(a1.GetCenter(), b1.GetCenter());
             //Declaire a float, which stores the distance between the vectors, call it 'distance'
             float distance = v1.Length();
             //Declaire a float, which will store sum between radiuses so the collision diantace would be known, call it 'rplusr'
@@ -89,28 +80,37 @@ namespace ECSEngine.Systems.ColiderSystem
             //Check is two objects are intesecting
             if(distance < rplusr)
             {
-                Vector2 c2toc1 = Vector2.Subtract(c2.position, c1.position);
-                //Check if vectors are on the proper axis
-                if (Vector2.Dot(v1,c2toc1) > 0)
-                {
-                    v1 *= -1;
-                }
-
-                //Collision is happening redirect to collision
-                collision(a1, b1, v1.Normalize(), rplusr-distance);
-                break;
+                /*
+                 * This Should calculate of how much Circles are overlaping
+                 */
             }
         }
 
-        void polypoly()
+        void PolyPoly(PolygonCollider a1, PolygonCollider b1)
         {
 
         }
 
-        void polycircle()
+        void PolyCircle(PolygonCollider a1, CircleCollider b1)
         {
 
         }
+        /*
+         * All the possible collision combinations:
+         
+         Circle-> Rectangle
+         Circle-> Circle
+         Circle-> Polygon
 
+        (AABB)
+         Rectangle -> Circle
+         Rectangle -> Rectangle
+         Rectangle -> Polygon
+
+         Polygon -> Circle
+         Polygon -> Rectangle
+         Polygon -> Polygon
+
+         */
     }
 }

@@ -6,12 +6,12 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ECSEngine.Component.Physics.Colliders
 {
-    public class RectCollider : Collider
+    public class PolygonCollider : Collider
     {
         protected Vector2 _center;
         public float _width, _height;
 
-        public RectCollider(Entity.Entity attachee, float width, float height, Vector2 center) : base(attachee) 
+        public PolygonCollider(Entity.Entity attachee, float width, float height, Vector2 center) : base(attachee) 
         {
             _width = width;
             _height = height;
