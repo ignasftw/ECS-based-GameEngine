@@ -9,15 +9,9 @@ namespace ECSEngine.Utils
     {
         public static float GetDistance(Vector2 v1, Vector2 v2)
         {
-            float x, y;
+            double distance = Math.Sqrt(((v1.X - v2.X)* (v1.X - v2.X) + (v1.Y - v2.Y)* (v1.Y - v2.Y)));
 
-            x = MathHelper.Distance(v1.X, v2.X);
-            y = MathHelper.Distance(v1.Y, v2.Y);
-
-            x *= x;
-            y *= y;
-
-            return (float)System.Math.Sqrt(x + y);
+            return (float)distance;
         }
     }
 }

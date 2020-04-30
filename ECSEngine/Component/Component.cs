@@ -6,7 +6,7 @@ using ECSEngine.Entity;
 
 namespace ECSEngine.Component
 {
-    public abstract class Component : IECSActor
+    public abstract class Component : IUpdatable
     {
         public Entity.Entity attachee;
 

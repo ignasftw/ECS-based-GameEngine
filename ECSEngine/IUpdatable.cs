@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace ECSEngine
 {
-    public interface IECSActor
+    public interface IUpdatable
     {
         void Update(GameTime gt);
     }

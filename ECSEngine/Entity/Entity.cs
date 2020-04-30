@@ -5,7 +5,7 @@ using Microsoft.Xna.Framework;
 
 namespace ECSEngine.Entity
 {
-    public class Entity : IECSActor
+    public class Entity : IUpdatable
     {
         public Scene.Scene attachee;
         public List<Component.Component> components;
