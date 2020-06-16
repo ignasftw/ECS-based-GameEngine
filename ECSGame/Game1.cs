@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -11,18 +12,16 @@ namespace ECSGame
         private SpriteBatch spriteBatch;
 
         public static ECSEngine.Scene.Scene curScene;
-        public static Game1 instance;
         public static int pixelsPerUnit = 100;
 
         public static int ScreenWidth;
         public static int ScreenHeight;
 
 
-        public ECSEngine.Entity.Entity[] entities = new ECSEngine.Entity.Entity[70];
+        public ECSEngine.Entity.Entity[] _entities = new ECSEngine.Entity.Entity[70];
 
         public int spawntime = 10;
         public int stime = 0;
-
 
         public Game1()
         {
@@ -30,7 +29,6 @@ namespace ECSGame
             Content.RootDirectory = "Content";
             graphics.PreferredBackBufferHeight = 720;
             graphics.PreferredBackBufferWidth = 1280;
-            instance = this;
         }
 
         /// <summary>
@@ -80,7 +78,6 @@ namespace ECSGame
                 )
             );
 
-
             background.AddComponent(
                 new ECSEngine.Component.Rendering.Sprite(
                     bg,
@@ -115,35 +112,35 @@ namespace ECSGame
             //--------------------------------------------------
             // Adding multiple entities
             //--------------------------------------------------
-            for (int i = 0; i < entities.Length; i++)
+            for (int i = 0; i < _entities.Length; i++)
             {
-                entities[i] =
+                _entities[i] =
                 curScene.AddEntity(
                     new ECSEngine.Entity.Entity(
-                        new Vector2(1100 / entities.Length * i, -i * 2),
+                        new Vector2(1100 / _entities.Length * i, -i * 2),
                         0.1f,
                         name: "Warrior " + i,
                         tag: 0
                     )
                 );
 
-                entities[i].AddComponent(
+                _entities[i].AddComponent(
                 new ECSEngine.Component.Rendering.Sprite(
                     entitytexture,
-                    entities[i],
+                    _entities[i],
                     index: 0
                     )
                 );
 
-                entities[i].AddComponent(
+                _entities[i].AddComponent(
                     new ECSEngine.Component.Physics.RigidBodies.Rigidbody(
-                        entities[i]
+                        _entities[i]
                     )
                 );
 
-                entities[i].AddComponent(
+                _entities[i].AddComponent(
                     new ECSEngine.Component.Physics.Colliders.RectCollider(
-                        entities[i],
+                        _entities[i],
                         10f,
                         35f,
                         new Vector2(25f, 25f)
@@ -198,7 +195,7 @@ namespace ECSGame
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            if (curScene.entities.Count > entities.Length + 10) EndDemoScreen();
+            if (curScene.entities.Count > _entities.Length + 10) EndDemoScreen();
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
             {
                 try
