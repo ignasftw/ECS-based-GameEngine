@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
-using ECSEngine.Component.Physics.Colliders;
 using ECSEngine.Utils;
+using ECSGame.Component.Physics.Colliders;
 using Microsoft.Xna.Framework;
 
-namespace ECSEngine.Systems.ColiderSystem
+namespace ECSGame.Systems.ColiderSystem
 {
     public static class CS
     {
         private static float pushOutSpeed = 8, fixedDeltaTime = 0.01f, timer = 0;
 
-        public static List<Collider> colliders = new List<Collider>();
+        private static List<Collider> colliders = new List<Collider>();
 
         public static void Update(GameTime gt)
         {
@@ -67,8 +66,8 @@ namespace ECSEngine.Systems.ColiderSystem
 
         public static bool DoCollide(RectCollider c1, RectCollider c2)
         {
-            Rectangle r1 = new Rectangle((int)c1.GetCenter().X, (int)c1.GetCenter().Y, (int)c1._width, (int)c1._height);
-            Rectangle r2 = new Rectangle((int)c2.GetCenter().X, (int)c2.GetCenter().Y, (int)c2._width, (int)c2._height);
+            Rectangle r1 = new Rectangle((int)c1.GetCenter().X, (int)c1.GetCenter().Y, (int)c1.GetDimensions().X, (int)c1.GetDimensions().Y);
+            Rectangle r2 = new Rectangle((int)c2.GetCenter().X, (int)c2.GetCenter().Y, (int)c2.GetDimensions().X, (int)c2.GetDimensions().Y);
 
             
             return r1.Intersects(r2);
@@ -110,6 +109,11 @@ namespace ECSEngine.Systems.ColiderSystem
             pushV.Normalize();
             //return new Vector2(0,-1) * pushOutSpeed;
             return new Vector2(0,pushV.Y) * pushOutSpeed;
+        }
+
+        public static void AddCollider(Collider colliderItem)
+        {
+            colliders.Add(colliderItem);
         }
     }
 }

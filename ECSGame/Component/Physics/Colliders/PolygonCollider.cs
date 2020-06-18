@@ -4,14 +4,14 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace ECSEngine.Component.Physics.Colliders
+namespace ECSGame.Component.Physics.Colliders
 {
-    public class RectCollider : Collider
+    public class PolygonCollider : Collider
     {
-        protected Vector2 _center;
-        public float _width, _height;
+        private Vector2 _center;
+        private float _width, _height;
 
-        public RectCollider(Entity.Entity attachee, float width, float height, Vector2 center) : base(attachee) 
+        public PolygonCollider(ECSEngine.Entity.Entity attachee, float width, float height, Vector2 center) : base(attachee) 
         {
             _width = width;
             _height = height;
@@ -20,7 +20,7 @@ namespace ECSEngine.Component.Physics.Colliders
 
         protected override Vector2 GetGlobalCenter()
         {
-            return _center + attachee.transform.position;
+            return _center + attachee.GetPosition();
         }
 
         public override float GetBottom()
@@ -67,7 +67,7 @@ namespace ECSEngine.Component.Physics.Colliders
         {
             if (hasRB)
             {
-                rb.velocity = pushVector;
+                rb.Collision(pushVector);
             }
         }
     }

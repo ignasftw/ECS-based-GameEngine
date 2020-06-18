@@ -4,55 +4,48 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace ECSEngine.Component.Physics.Colliders
+namespace ECSGame.Component.Physics.Colliders
 {
-    public class CircleCollider : Collider
+    public class RectCollider : Collider
     {
-        // Private Vars
-        protected Vector2 _center;
-        protected float _radius;
+        private Vector2 _center;
+        private float _width, _height;
 
-        // Constructor
-        public CircleCollider(Entity.Entity attachee, float radius, Vector2 center) : base(attachee) 
+        public RectCollider(ECSEngine.Entity.Entity attachee, float width, float height, Vector2 center) : base(attachee) 
         {
-            _radius = radius;
+            _width = width;
+            _height = height;
             _center = center;
         }
 
         protected override Vector2 GetGlobalCenter()
         {
-            return _center + attachee.transform.position;
+            return _center + attachee.GetPosition();
         }
 
-        // Public Functions
+        public override float GetBottom()
+        {
+            return GetGlobalCenter().Y + _height / 2;
+        }
+
         public override Vector2 GetCenter()
         {
             return GetGlobalCenter();
         }
 
-        public override float GetBottom()
-        {
-            return GetGlobalCenter().Y + _radius;
-        }
-
         public override float GetLeft()
         {
-            return GetGlobalCenter().X - _radius;
+            return GetGlobalCenter().X - _width / 2;
         }
 
         public override float GetRight()
         {
-            return GetGlobalCenter().X + _radius;
+            return GetGlobalCenter().X + _width / 2;
         }
 
         public override float GetTop()
         {
-            return GetGlobalCenter().Y - _radius;
-        }
-
-        public float GetRadius()
-        {
-            return _radius;
+            return GetGlobalCenter().Y - _height / 2;
         }
 
         public override void Update(GameTime gt)
@@ -74,8 +67,13 @@ namespace ECSEngine.Component.Physics.Colliders
         {
             if (hasRB)
             {
-                rb.velocity = pushVector;
+                rb.Collision(pushVector);
             }
+        }
+
+        public Vector2 GetDimensions()
+        {
+            return new Vector2(_width,_height);
         }
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace ECSEngine.Component
+namespace ECSEngine
 {
     public interface IVDebuggable
     {

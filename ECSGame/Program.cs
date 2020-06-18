@@ -9,7 +9,7 @@ namespace ECSGame
     public static class Program
     {
         /// <summary>
-        /// The main entry point for the application.
+        /// Initialize the Simulation
         /// </summary>
         [STAThread]
         static void Main()

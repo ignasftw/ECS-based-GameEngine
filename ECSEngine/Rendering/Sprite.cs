@@ -14,9 +14,9 @@ namespace ECSEngine.Component.Rendering
 {
     public class Sprite : ECSEngine.Component.Component
     {
-        public Texture2D texture;
-        public Color color = Color.White;
-        public int layerIndex = 0;
+        private Texture2D texture;
+        private Color color = Color.White;
+        private int layerIndex = 0;
         private bool _hastxt = false;
 
         public Sprite(Texture2D txt, Entity.Entity attachee, int index = 0)
@@ -37,11 +37,11 @@ namespace ECSEngine.Component.Rendering
 
             sb.Draw(
                 texture,
-                attachee.transform.position,
+                attachee.GetPosition(),
                 null,
                 color,
-                attachee.transform.rotationZ,
-                Vector2.Zero, attachee.transform.scale,
+                attachee.GetRotationZ(),
+                Vector2.Zero, attachee.GetScale(),
                 SpriteEffects.None,
                 layerIndex
             );

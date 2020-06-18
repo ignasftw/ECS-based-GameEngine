@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using ECSGame.Component.Physics.RigidBodies;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using ECSEngine.Component.Rendering;
 
 namespace ECSGame
 {
@@ -11,17 +13,16 @@ namespace ECSGame
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
 
-        public static ECSEngine.Scene.Scene curScene;
-        public static int pixelsPerUnit = 100;
+        private ECSEngine.Scene.Scene curScene;
 
-        public static int ScreenWidth;
-        public static int ScreenHeight;
+        private int ScreenWidth;
+        private int ScreenHeight;
 
 
-        public ECSEngine.Entity.Entity[] _entities = new ECSEngine.Entity.Entity[70];
+        private ECSEngine.Entity.Entity[] _entities = new ECSEngine.Entity.Entity[1000];
 
-        public int spawntime = 10;
-        public int stime = 0;
+        private int spawntime = 10;
+        private int stime = 0;
 
         public Game1()
         {
@@ -79,7 +80,7 @@ namespace ECSGame
             );
 
             background.AddComponent(
-                new ECSEngine.Component.Rendering.Sprite(
+                new Sprite(
                     bg,
                     background,
                     0
@@ -100,7 +101,7 @@ namespace ECSGame
 
 
             entbottom.AddComponent(
-                new ECSEngine.Component.Physics.Colliders.RectCollider(
+                new Component.Physics.Colliders.RectCollider(
                     entbottom,
                     3500f,
                     (float)ScreenHeight / 2,
@@ -108,16 +109,26 @@ namespace ECSGame
                 )
             );
 
-
+            int xposition = 0;
+            int yposition = 0;
             //--------------------------------------------------
             // Adding multiple entities
             //--------------------------------------------------
             for (int i = 0; i < _entities.Length; i++)
             {
+
+                if(xposition > 1100)
+                {
+                    xposition = 0;
+                    yposition -= 10;
+                }
+                else{
+                    xposition++;
+                }
                 _entities[i] =
                 curScene.AddEntity(
                     new ECSEngine.Entity.Entity(
-                        new Vector2(1100 / _entities.Length * i, -i * 2),
+                        new Vector2(30 + xposition, yposition-i),
                         0.1f,
                         name: "Warrior " + i,
                         tag: 0
@@ -125,7 +136,7 @@ namespace ECSGame
                 );
 
                 _entities[i].AddComponent(
-                new ECSEngine.Component.Rendering.Sprite(
+                new Sprite(
                     entitytexture,
                     _entities[i],
                     index: 0
@@ -133,19 +144,19 @@ namespace ECSGame
                 );
 
                 _entities[i].AddComponent(
-                    new ECSEngine.Component.Physics.RigidBodies.Rigidbody(
+                    new Rigidbody(
                         _entities[i]
                     )
                 );
 
-                _entities[i].AddComponent(
-                    new ECSEngine.Component.Physics.Colliders.RectCollider(
-                        _entities[i],
-                        10f,
-                        35f,
-                        new Vector2(25f, 25f)
-                    )
-                );
+                //_entities[i].AddComponent(
+                //    new ECSEngine.Component.Physics.Colliders.RectCollider(
+                //        _entities[i],
+                //        10f,
+                //        35f,
+                //        new Vector2(25f, 25f)
+                //    )
+                //);
             }
         }
 
@@ -169,7 +180,7 @@ namespace ECSGame
             );
 
             background.AddComponent(
-                new ECSEngine.Component.Rendering.Sprite(
+                new Sprite(
                     bg,
                     background,
                     0
@@ -233,7 +244,7 @@ namespace ECSGame
                 );
 
                 bullet.AddComponent(
-                new ECSEngine.Component.Rendering.Sprite(
+                new Sprite(
                     bullettexture,
                     bullet,
                     index: 0
@@ -241,7 +252,7 @@ namespace ECSGame
                 );
 
                 bullet.AddComponent(
-                    new ECSEngine.Component.Physics.RigidBodies.FixedSpeed(
+                    new FixedSpeed(
                         bullet,
                         30,
                         0
@@ -249,7 +260,7 @@ namespace ECSGame
                 );
 
                 bullet.AddComponent(
-                    new ECSEngine.Component.Physics.Colliders.RectCollider(
+                    new Component.Physics.Colliders.RectCollider(
                         bullet,
                         50f,
                         50f,

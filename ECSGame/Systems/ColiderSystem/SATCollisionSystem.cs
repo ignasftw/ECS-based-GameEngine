@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
-using ECSEngine.Component.Physics.Colliders;
 using ECSEngine.Utils;
+using ECSGame.Component.Physics.Colliders;
 using Microsoft.Xna.Framework;
 
-namespace ECSEngine.Systems.ColiderSystem
+namespace ECSGame.Systems.ColiderSystem
 
 /*
  * REFERENCES:

@@ -4,20 +4,20 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace ECSEngine.Component.Physics.Colliders
+namespace ECSGame.Component.Physics.Colliders
 {
-    public abstract class Collider : Component, ECSEngine.Component.IVDebuggable
+    public abstract class Collider : ECSEngine.Component.Component, ECSEngine.IVDebuggable
     {
         public static bool renderColliders = false;
 
         protected bool hasRB, lc, rc, dc, uc;
         protected RigidBodies.Rigidbody rb;
 
-        public Collider(Entity.Entity attachee) : base(attachee)
+        public Collider(ECSEngine.Entity.Entity attachee) : base(attachee)
         {
-            rb = attachee.FindComponent<ECSEngine.Component.Physics.RigidBodies.Rigidbody>();           
+            rb = attachee.FindComponent<RigidBodies.Rigidbody>();           
             hasRB = rb != null;
-            ECSEngine.Systems.ColiderSystem.CS.colliders.Add(this);
+            Systems.ColiderSystem.CS.AddCollider(this);
             ECSEngine.Rendering.Renderer.VDs.Add(this);
         }
 

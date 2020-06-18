@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 
@@ -8,8 +9,8 @@ namespace ECSEngine.Scene
     public class Scene : IUpdatable
     {
         public List<Entity.Entity> entities;
-        private Dictionary<Type, ECSEngine.Component.Component> components;
-        public List<ECSEngine.Component.Component> _components;
+        private Dictionary<ECSEngine.Component.Component, Type> _components;
+        private List<ECSEngine.Component.Component> _systems;
 
 
         public Scene()
@@ -17,37 +18,80 @@ namespace ECSEngine.Scene
             entities = new List<Entity.Entity>();
 
             //Initialize empty distionary to store components
-            //_components = new Dictionary<Type, ECSEngine.Component.Component>();
-            _components = new List<Component.Component>();
+            _systems = new List<ECSEngine.Component.Component>();
+            _components = new Dictionary<ECSEngine.Component.Component, Type>();
         }
 
         public void Update(GameTime gt)
         {
+            //CallUpdatesByComponents(gt);
             CallEntitiesUpdates(gt);
-            CallCSUpdate(gt);
+            //CallCSUpdate(gt);
         }
 
         public Entity.Entity AddEntity(ECSEngine.Entity.Entity entity)
         {
+            entity.SendComponent(AddComponentUpdate);
             entities.Add(entity);
-
-            //foreach (var pair in entity.components)
-            //{
-            //    List<ECSEngine.Component.Component> componentGroup = null;
-            //    if (_componentGroups.TryGetValue(pair.Key, out componentGroup) == false)
-            //    {
-            //        componentGroup = new List<ECSEngine.Component.Component>();
-            //        _componentGroups.Add(pair.Key, componentGroup);
-            //    }
-            //    componentGroup.Add(pair.Value);
-            //}
-
             return entity;
         }
 
         public void RemoveEntity(ECSEngine.Entity.Entity entity)
         {
             entities.Remove(entity);
+        }
+
+        public void AddComponentUpdate(Component.Component comp)
+        {
+            //Console.WriteLine("Component was added " + comp.ToString());
+            _components.Add(comp, comp.GetType());
+
+            if (_systems.Count > 0)
+            {
+                for (int i = 0; i < _systems.Count; i++)
+                {
+                    if(_systems[i].GetType() == comp.GetType())
+                    {
+                        return;
+                    }
+                }
+                _systems.Add(comp);
+            }
+            else
+            {
+                _systems.Add(comp);
+            }
+        }
+
+
+        private void CallUpdatesByComponents(GameTime gt)
+        {
+            foreach (Component.Component comp in _systems)
+            {
+                List<Component.Component> Components = GetComponents(comp);
+                if (Components.Count > 0)
+                {
+                        for (int i = 0; i < Components.Count; i++)
+                        {
+                            Components[i].Update(gt);
+                        }
+                }
+            }
+        }
+
+
+        public List<Component.Component> GetComponents(Component.Component type)
+        {
+            List<Component.Component> components = new List<Component.Component>();
+            if (_components.ContainsValue(type.GetType()))
+            {
+                foreach(var comp in _components)
+                {
+                    if(comp.Key.GetType() == type.GetType())
+                    components.Add(comp.Key);
+                }
+            }
+            return components;
         }
 
         private void CallEntitiesUpdates(GameTime gt)
@@ -58,9 +102,9 @@ namespace ECSEngine.Scene
             }
         }
 
-        private void CallCSUpdate(GameTime gt)
-        {
-            ECSEngine.Systems.ColiderSystem.CS.Update(gt);
-        }
+        //private void CallCSUpdate(GameTime gt)
+        //{
+        //    Systems.ColiderSystem.CS.Update(gt);
+        //}
     }
 }

@@ -9,7 +9,7 @@ namespace ECSEngine.Rendering
     public static class Renderer
     {
         public static List<Component.Rendering.Sprite> sprites = new List<Component.Rendering.Sprite>();
-        public static List<ECSEngine.Component.IVDebuggable> VDs = new List<ECSEngine.Component.IVDebuggable>();
+        public static List<IVDebuggable> VDs = new List<IVDebuggable>();
 
         public static void Draw(SpriteBatch sb)
         {
@@ -18,7 +18,7 @@ namespace ECSEngine.Rendering
                 sprite.Draw(sb);
             }
 
-            foreach (ECSEngine.Component.IVDebuggable VD in VDs)
+            foreach (IVDebuggable VD in VDs)
             {
                 VD.Draw(sb);
             }
