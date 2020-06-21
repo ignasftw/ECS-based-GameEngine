@@ -23,13 +23,13 @@ namespace ECSGame.Component.Physics.RigidBodies
             {
                 velocity = new Vector2(velocity.X, velocity.Y + (gravity * (float)gt.ElapsedGameTime.TotalSeconds));
             }
-            if(attachee.GetPosition().Y > 720)
+            if(attachee.GetPosition().Y > 600)
             {
                 if(velocity.Y>0)
                 velocity = -velocity;
             }
 
-            if (attachee.GetPosition().Y < 0)
+            if (attachee.GetPosition().Y < -2000)
             {
                 if (velocity.Y < 0)
                     velocity = -velocity;

@@ -18,11 +18,12 @@ namespace ECSGame
         private int ScreenWidth;
         private int ScreenHeight;
 
-
         private ECSEngine.Entity.Entity[] _entities = new ECSEngine.Entity.Entity[1000];
 
         private int spawntime = 10;
         private int stime = 0;
+
+        public static int entityCount = 0;
 
         public Game1()
         {
@@ -116,8 +117,8 @@ namespace ECSGame
             //--------------------------------------------------
             for (int i = 0; i < _entities.Length; i++)
             {
-
-                if(xposition > 1100)
+                Game1.entityCount++;
+                if (xposition > 1100)
                 {
                     xposition = 0;
                     yposition -= 10;
@@ -157,6 +158,18 @@ namespace ECSGame
                 //        new Vector2(25f, 25f)
                 //    )
                 //);
+            }
+        }
+
+        public bool WasTestScreenCreated()
+        {
+            if (_entities.Length > 10)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 

@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1082
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECSEngine", "ECSEngine\ECSEngine.csproj", "{00FE5C2B-7C23-4089-B818-BBB9D7285A71}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECSGame", "ECSGame\ECSGame.csproj", "{56B12C99-1B20-4E71-9EBB-C846E8F4D04F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ECSEngine.UnitTests", "ECSEngine.UnitTests\ECSEngine.UnitTests.csproj", "{76E87A70-789C-4EDD-A1C7-1673C1588DA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +33,14 @@ Global
 		{56B12C99-1B20-4E71-9EBB-C846E8F4D04F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{56B12C99-1B20-4E71-9EBB-C846E8F4D04F}.Release|x86.ActiveCfg = Release|Any CPU
 		{56B12C99-1B20-4E71-9EBB-C846E8F4D04F}.Release|x86.Build.0 = Release|Any CPU
+		{76E87A70-789C-4EDD-A1C7-1673C1588DA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76E87A70-789C-4EDD-A1C7-1673C1588DA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76E87A70-789C-4EDD-A1C7-1673C1588DA6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{76E87A70-789C-4EDD-A1C7-1673C1588DA6}.Debug|x86.Build.0 = Debug|Any CPU
+		{76E87A70-789C-4EDD-A1C7-1673C1588DA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76E87A70-789C-4EDD-A1C7-1673C1588DA6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76E87A70-789C-4EDD-A1C7-1673C1588DA6}.Release|x86.ActiveCfg = Release|Any CPU
+		{76E87A70-789C-4EDD-A1C7-1673C1588DA6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
