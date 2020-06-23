@@ -8,7 +8,7 @@ namespace ECSGame.Component.Physics.Colliders
 {
     public abstract class Collider : ECSEngine.Component.Component, ECSEngine.IVDebuggable
     {
-        public static bool renderColliders = false;
+        public static bool renderColliders = true;
 
         protected bool hasRB, lc, rc, dc, uc;
         protected RigidBodies.Rigidbody rb;
@@ -17,7 +17,7 @@ namespace ECSGame.Component.Physics.Colliders
         {
             rb = attachee.FindComponent<RigidBodies.Rigidbody>();           
             hasRB = rb != null;
-            Systems.ColiderSystem.CS.AddCollider(this);
+            //Systems.ColiderSystem.CS.AddCollider(this);
             ECSEngine.Rendering.Renderer.VDs.Add(this);
         }
 

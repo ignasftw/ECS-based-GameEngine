@@ -8,44 +8,53 @@ namespace ECSEngine.Scene
 {
     public class Scene : IUpdatable
     {
-        public List<Entity.Entity> entities;
-        private Dictionary<ECSEngine.Component.Component, Type> _components;
+        public List<Entity.Entity> _entities;
+        public Dictionary<ECSEngine.Component.Component, Type> _components;
         private List<ECSEngine.Component.Component> _systems;
-
 
         public Scene()
         {
-            entities = new List<Entity.Entity>();
+            _entities = new List<Entity.Entity>();
 
             //Initialize empty distionary to store components
             _systems = new List<ECSEngine.Component.Component>();
             _components = new Dictionary<ECSEngine.Component.Component, Type>();
         }
 
-        public void Update(GameTime gt)
+        public virtual void Update(GameTime gt)
         {
-            //CallUpdatesByComponents(gt);
-            CallEntitiesUpdates(gt);
+            CallUpdatesByComponents(gt);
+            //CallEntitiesUpdates(gt);
             //CallCSUpdate(gt);
         }
 
         public Entity.Entity AddEntity(ECSEngine.Entity.Entity entity)
         {
+            //Send entitie's CollisionComponent to a CollisionSystem
             entity.SendComponent(AddComponentUpdate);
-            entities.Add(entity);
+            _entities.Add(entity);
             return entity;
         }
 
         public void RemoveEntity(ECSEngine.Entity.Entity entity)
         {
-            entities.Remove(entity);
+            //entity.RemoveAllComponents();
+            foreach (var comp in entity.GetComponents())
+            {
+                _components.Remove(comp);
+            }
+            _entities.Remove(entity);
         }
 
+        /// <summary>
+        /// METHOD: puts a new component into a list of unique components
+        /// this allows only to update the components which have been added
+        /// </summary>
+        /// <param name="comp">Component</param>
         public void AddComponentUpdate(Component.Component comp)
         {
-            //Console.WriteLine("Component was added " + comp.ToString());
+            Console.WriteLine("Component was added " + comp.ToString());
             _components.Add(comp, comp.GetType());
-
             if (_systems.Count > 0)
             {
                 for (int i = 0; i < _systems.Count; i++)
@@ -63,8 +72,18 @@ namespace ECSEngine.Scene
             }
         }
 
+        /// <summary>
+        /// METHOD: some components do not work on their own
+        /// Collision system requires multiple collider components in order to work
+        /// </summary>
+        //public void SendComponentToSysyem(Action<Component.Component> ComponentReceiver,Component.Component comp)
+        //{
+        //    //Add a component to a system
+        //    ComponentReceiver(comp);
+        //}
 
-        private void CallUpdatesByComponents(GameTime gt)
+
+        public void CallUpdatesByComponents(GameTime gt)
         {
             foreach (Component.Component comp in _systems)
             {
@@ -96,7 +115,7 @@ namespace ECSEngine.Scene
 
         private void CallEntitiesUpdates(GameTime gt)
         {
-            foreach (Entity.Entity entt in entities)
+            foreach (Entity.Entity entt in _entities)
             {
                 entt.Update(gt);
             }

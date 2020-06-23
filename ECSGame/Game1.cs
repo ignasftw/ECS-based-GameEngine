@@ -4,33 +4,37 @@ using ECSGame.Component.Physics.RigidBodies;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using ECSEngine.Inputs;
 using ECSEngine.Component.Rendering;
+using ECSGame.Systems.ColiderSystem;
 
 namespace ECSGame
 {
     public class Game1 : Game
     {
-        private GraphicsDeviceManager graphics;
-        private SpriteBatch spriteBatch;
+        //DECLARE a GraphicsDeviceManager call it '_graphics'
+        private GraphicsDeviceManager _graphics;
+        //DECLARE a SpriteBatch which is required for sprite rendering, call it '_spriteBatch'
+        private SpriteBatch _spriteBatch;
+        private List<ECSEngine.IUpdatable> _updateable;
+        //DECLARE a IInputPublisher which announced when spacebar is pressed, call it '_spaceBarHandler'
+        private IInputPublisher _spaceBarHandler;
+        //DECLARE a CollisionSystem which will collisions in the simulation, call it '_collisionSystem'
+        private ICollisionSystem _collisionSystem;
+        //DECLARE a Scene which will tell the current scene, call it '_curScene'
+        private ECSEngine.Scene.Scene _curScene;
 
-        private ECSEngine.Scene.Scene curScene;
+        private ECSEngine.SceneManager _sceneManager;
 
         private int ScreenWidth;
         private int ScreenHeight;
 
-        private ECSEngine.Entity.Entity[] _entities = new ECSEngine.Entity.Entity[1000];
-
-        private int spawntime = 10;
-        private int stime = 0;
-
-        public static int entityCount = 0;
-
         public Game1()
         {
-            graphics = new GraphicsDeviceManager(this);
+            _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-            graphics.PreferredBackBufferHeight = 720;
-            graphics.PreferredBackBufferWidth = 1280;
+            _graphics.PreferredBackBufferHeight = 720;
+            _graphics.PreferredBackBufferWidth = 1280;
         }
 
         /// <summary>
@@ -41,9 +45,31 @@ namespace ECSGame
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
+            //Set the Sceen's Height dimensions in pixels
             ScreenHeight = GraphicsDevice.Viewport.Height;
+            //Set the Sceen's Width dimensions in pixels
             ScreenWidth = GraphicsDevice.Viewport.Width;
+            //Initialize SceneManager
+            _sceneManager = new ECSEngine.SceneManager();
+            //Initialize InputManager
+            _spaceBarHandler = new KeyboardInputHandler();
+            //Initialize Collision System
+            _collisionSystem = new CollisionSystem();
+
+            //Initialize empty list of IUpdatables
+            _updateable = new List<ECSEngine.IUpdatable>();
+
+            //Initialize and store a test scene
+            Scenes.TestScene testScene = new Scenes.TestScene(_collisionSystem.AddCollider, Content, ScreenWidth, ScreenHeight);
+            _spaceBarHandler.Subscribe(testScene);
+            _sceneManager.AddScene("TestScene", testScene);
+            //Set the initial Scene
+            _curScene = _sceneManager.SetScene("TestScene");
+            //Add all the updatables into a list, this is not done into a dictionary earlier to avoid confusion
+            //and messy code
+            _updateable.Add(_curScene as ECSEngine.IUpdatable);
+            _updateable.Add(_spaceBarHandler as ECSEngine.IUpdatable);
+            _updateable.Add(_collisionSystem as ECSEngine.IUpdatable);
             base.Initialize();
         }
 
@@ -54,151 +80,7 @@ namespace ECSGame
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
-            MakeTestScene();
-        }
-
-        private void MakeTestScene()
-        {
-            Texture2D entitytexture = Content.Load<Texture2D>("entity");
-            Texture2D bg = Content.Load<Texture2D>("Wallpaper2");
-
-            curScene = new ECSEngine.Scene.Scene();
-
-            //--------------------------------------------------
-            // Adding the background
-            //--------------------------------------------------
-            ECSEngine.Entity.Entity background =
-            curScene.AddEntity(
-                new ECSEngine.Entity.Entity(
-                    new Vector2(0, -0),
-                    1f,
-                    name: "Background",
-                    tag: 0
-                )
-            );
-
-            background.AddComponent(
-                new Sprite(
-                    bg,
-                    background,
-                    0
-                )
-            );
-            //--------------------------------------------------
-            // Adding the floor
-            //--------------------------------------------------
-            ECSEngine.Entity.Entity entbottom =
-                curScene.AddEntity(
-                    new ECSEngine.Entity.Entity(
-                        new Vector2(0, ScreenHeight - 50),
-                        0.1f,
-                        name: "Floor collision",
-                        tag: 0
-                    )
-                );
-
-
-            entbottom.AddComponent(
-                new Component.Physics.Colliders.RectCollider(
-                    entbottom,
-                    3500f,
-                    (float)ScreenHeight / 2,
-                    Vector2.Zero
-                )
-            );
-
-            int xposition = 0;
-            int yposition = 0;
-            //--------------------------------------------------
-            // Adding multiple entities
-            //--------------------------------------------------
-            for (int i = 0; i < _entities.Length; i++)
-            {
-                Game1.entityCount++;
-                if (xposition > 1100)
-                {
-                    xposition = 0;
-                    yposition -= 10;
-                }
-                else{
-                    xposition++;
-                }
-                _entities[i] =
-                curScene.AddEntity(
-                    new ECSEngine.Entity.Entity(
-                        new Vector2(30 + xposition, yposition-i),
-                        0.1f,
-                        name: "Warrior " + i,
-                        tag: 0
-                    )
-                );
-
-                _entities[i].AddComponent(
-                new Sprite(
-                    entitytexture,
-                    _entities[i],
-                    index: 0
-                    )
-                );
-
-                _entities[i].AddComponent(
-                    new Rigidbody(
-                        _entities[i]
-                    )
-                );
-
-                //_entities[i].AddComponent(
-                //    new ECSEngine.Component.Physics.Colliders.RectCollider(
-                //        _entities[i],
-                //        10f,
-                //        35f,
-                //        new Vector2(25f, 25f)
-                //    )
-                //);
-            }
-        }
-
-        public bool WasTestScreenCreated()
-        {
-            if (_entities.Length > 10)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        private void EndDemoScreen()
-        {
-            Texture2D bg = Content.Load<Texture2D>("YouWin");
-
-            curScene = new ECSEngine.Scene.Scene();
-
-            //--------------------------------------------------
-            // Adding the background
-            //--------------------------------------------------
-            ECSEngine.Entity.Entity background =
-            curScene.AddEntity(
-                new ECSEngine.Entity.Entity(
-                    new Vector2(0, -0),
-                    1f,
-                    name: "Background",
-                    tag: 0
-                )
-            );
-
-            background.AddComponent(
-                new Sprite(
-                    bg,
-                    background,
-                    0
-                )
-            );
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
         }
 
         /// <summary>
@@ -217,77 +99,26 @@ namespace ECSGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
+            //IF the player presses 'Escape' button then terminate the simulation
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            if (curScene.entities.Count > _entities.Length + 10) EndDemoScreen();
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+
+            //If the entity count exceeds 120, then switch the scenes
+            if (_curScene._entities.Count > 80)
             {
-                try
-                {
-                    spawnBullet();
-                }
-                catch (Exception e)
-                {
-                    throw new Exceptions.InvalidSpawnException("Could not spawn a bullet", e);
-                }
+                //Unsubscribe the spacebar event to prevent bullet spawning
+                _spaceBarHandler.Unsubscribe(_curScene as IInputListener);
+                //Add a new TestEndScene 
+                _sceneManager.AddScene("TestEndScene", new Scenes.TestEndScene(Content));
+                //Set the current scene to "TestEndScene" because the demo ended
+                _curScene = _sceneManager.SetScene("TestEndScene");
             }
 
-            // TODO: Add your update logic here
-            curScene.Update(gameTime);
-
+            foreach (ECSEngine.IUpdatable system in _updateable)
+            {
+                system.Update(gameTime);
+            }
             base.Update(gameTime);
-        }
-
-
-        void spawnBullet()
-        {
-            if (stime == spawntime)
-            {
-                Texture2D bullettexture = Content.Load<Texture2D>("bullet");
-                ECSEngine.Entity.Entity bullet;
-
-                bullet =
-                curScene.AddEntity(
-                    new ECSEngine.Entity.Entity(
-                        new Vector2(100, 600),
-                        0.5f,
-                        name: "Bullet",
-                        tag: 0
-                    )
-                );
-
-                bullet.AddComponent(
-                new Sprite(
-                    bullettexture,
-                    bullet,
-                    index: 0
-                    )
-                );
-
-                bullet.AddComponent(
-                    new FixedSpeed(
-                        bullet,
-                        30,
-                        0
-                    )
-                );
-
-                bullet.AddComponent(
-                    new Component.Physics.Colliders.RectCollider(
-                        bullet,
-                        50f,
-                        50f,
-                        new Vector2(5f, 17f)
-                    )
-                );
-
-                Console.WriteLine("Entity has been created. Count: " + +curScene.entities.Count);
-                stime = 0;
-            }
-            else
-            {
-                stime++;
-            }
         }
 
         /// <summary>
@@ -296,15 +127,14 @@ namespace ECSGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            //Set default blank screen colour
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            // TODO: Add your drawing code here
-            spriteBatch.Begin();
-
-            ECSEngine.Rendering.Renderer.Draw(spriteBatch);
-
-            spriteBatch.End();
-
+            //Start spriteBatch for drawing sprites
+            _spriteBatch.Begin();
+            //Draw all the Draw compoenets
+            ECSEngine.Rendering.Renderer.Draw(_spriteBatch);
+            //Stop spriteBatch after everything is drawn
+            _spriteBatch.End();
             base.Draw(gameTime);
         }
 

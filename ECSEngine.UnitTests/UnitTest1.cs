@@ -3,8 +3,6 @@ using ECSEngine.Component.Rendering;
 using ECSGame;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Xna.Framework;
-using System.Drawing;
-using Microsoft.Xna.Framework.Graphics;
 
 namespace ECSEngine.UnitTests
 {
@@ -18,25 +16,27 @@ namespace ECSEngine.UnitTests
             //Arrange
             Scene.Scene curScene;
             curScene = new Scene.Scene();
+            //INITIALIZE collider system because it requires to gather its components
+            ECSGame.Systems.ColiderSystem.CollisionSystem _colliderSystem = new ECSGame.Systems.ColiderSystem.CollisionSystem();
             //Act
-            CreatingAnEntity(curScene);
+            CreatingAnEntity(curScene, _colliderSystem);
             //Assert
-            Assert.IsTrue(curScene.entities.Count > 0);
+            Assert.IsTrue(curScene._entities.Count > 0);
         }
         [TestMethod]
-        public void IsSuccessfullyCreated_NotCreatingEntity_True()
+        public void IsSuccessfullyCreated_NotCreatingEntity_False()
         {
             //Arrange
             Scene.Scene curScene;
             curScene = new Scene.Scene();
             //Act
-            //Same as first one but not running
-            //CreatingAnEntity(curScene);
+            //Same as first one but not running, to make sure that the scene is initially empty
             //Assert
-            Assert.IsFalse(curScene.entities.Count > 0);
+            //If the current scene has no entities it should return false
+            Assert.IsFalse(curScene._entities.Count > 0);
         }
 
-        void CreatingAnEntity(Scene.Scene curScene)
+        void CreatingAnEntity(Scene.Scene curScene, ECSGame.Systems.ColiderSystem.CollisionSystem colliderSystem)
         {
             Entity.Entity testEntity =
             curScene.AddEntity(
@@ -53,7 +53,8 @@ namespace ECSEngine.UnitTests
             testEntity,
             3500f,
             (float)0 / 2,
-            Vector2.Zero
+            Vector2.Zero,
+            colliderSystem.AddCollider
             )
             );
         }

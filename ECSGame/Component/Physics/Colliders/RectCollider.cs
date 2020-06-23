@@ -10,12 +10,14 @@ namespace ECSGame.Component.Physics.Colliders
     {
         private Vector2 _center;
         private float _width, _height;
+        private Action<Collider> _addCollider;
 
-        public RectCollider(ECSEngine.Entity.Entity attachee, float width, float height, Vector2 center) : base(attachee) 
+        public RectCollider(ECSEngine.Entity.Entity attachee, float width, float height, Vector2 center, Action<Collider> addCollider) : base(attachee) 
         {
             _width = width;
             _height = height;
             _center = center;
+            addCollider(this);
         }
 
         protected override Vector2 GetGlobalCenter()

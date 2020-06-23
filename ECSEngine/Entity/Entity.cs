@@ -39,6 +39,11 @@ namespace ECSEngine.Entity
             CallComponentsUpdates(gt);
         }
 
+        /// <summary>
+        /// METHOD: Updates transform component
+        /// </summary>
+        /// <param name="gt"></param>
+        /// <param name="comp"></param>
         public void Update(GameTime gt, Component.Component comp)
         {
             _components[0].Update(gt);
@@ -46,14 +51,14 @@ namespace ECSEngine.Entity
 
         public void AddComponent(Component.Component comp)
         {
-            if (!(comp is ECSEngine.Component.Transform.Transform2D))
+            if (!(comp is Component.Transform.Transform2D))
             {
                 _SendComp(comp);
                 _components.Add(comp);
             }
         }
 
-        public T FindComponent<T>() where T : ECSEngine.Component.Component
+        public T FindComponent<T>() where T : Component.Component
         {
             foreach (var comp in _components)
             {
@@ -71,6 +76,15 @@ namespace ECSEngine.Entity
             {
                 _components.Remove(comp);
             }
+        }
+
+        /// <summary>
+        /// METHOD: returns all the components that the entity contains
+        /// </summary>
+        /// <returns>A list of entitie's components</returns>
+        public List<Component.Component> GetComponents()
+        {
+            return _components;
         }
 
         public void RemoveAllComponents()

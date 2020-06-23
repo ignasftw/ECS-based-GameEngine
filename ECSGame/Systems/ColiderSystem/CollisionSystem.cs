@@ -7,13 +7,13 @@ using Microsoft.Xna.Framework;
 
 namespace ECSGame.Systems.ColiderSystem
 {
-    public static class CS
+    public class CollisionSystem : ECSEngine.IUpdatable, ICollisionSystem
     {
-        private static float pushOutSpeed = 8, fixedDeltaTime = 0.01f, timer = 0;
+        private float pushOutSpeed = 8, fixedDeltaTime = 0.01f, timer = 0;
 
-        private static List<Collider> colliders = new List<Collider>();
+        private List<Collider> colliders = new List<Collider>();
 
-        public static void Update(GameTime gt)
+        public void Update(GameTime gt)
         {
             timer += (float)gt.ElapsedGameTime.TotalSeconds;
             if (timer >= fixedDeltaTime)
@@ -34,7 +34,7 @@ namespace ECSGame.Systems.ColiderSystem
             }
         }
 
-        public static bool DoCollide(Collider c1, Collider c2)
+        public bool DoCollide(Collider c1, Collider c2)
         {
             if(c1 is CircleCollider)
             {
@@ -56,7 +56,7 @@ namespace ECSGame.Systems.ColiderSystem
             return false;
         }
 
-        public static bool DoCollide(CircleCollider c1, CircleCollider c2)
+        public bool DoCollide(CircleCollider c1, CircleCollider c2)
         {
             float dist = MathUtils.GetDistance(c1.GetCenter(), c2.GetCenter());
             float radsum = c1.GetRadius() + c2.GetRadius();
@@ -64,7 +64,7 @@ namespace ECSGame.Systems.ColiderSystem
             return dist <= radsum;
         }
 
-        public static bool DoCollide(RectCollider c1, RectCollider c2)
+        public bool DoCollide(RectCollider c1, RectCollider c2)
         {
             Rectangle r1 = new Rectangle((int)c1.GetCenter().X, (int)c1.GetCenter().Y, (int)c1.GetDimensions().X, (int)c1.GetDimensions().Y);
             Rectangle r2 = new Rectangle((int)c2.GetCenter().X, (int)c2.GetCenter().Y, (int)c2.GetDimensions().X, (int)c2.GetDimensions().Y);
@@ -73,7 +73,7 @@ namespace ECSGame.Systems.ColiderSystem
             return r1.Intersects(r2);
         }
 
-        public static Vector2 PushSpeedVector(Collider ECSEngine, Collider second)
+        public Vector2 PushSpeedVector(Collider ECSEngine, Collider second)
         {
             if(ECSEngine is CircleCollider)
             {
@@ -92,18 +92,16 @@ namespace ECSGame.Systems.ColiderSystem
             }
 
             throw new NotImplementedException();
-
-            //return Vector2.Zero;
         }
 
-        public static Vector2 PushSpeedVector(CircleCollider ECSEngine, CircleCollider second)
+        public Vector2 PushSpeedVector(CircleCollider ECSEngine, CircleCollider second)
         {
             Vector2 pushV = second.GetCenter() - ECSEngine.GetCenter();
             pushV.Normalize();
             return pushV * pushOutSpeed;
         }
 
-        public static Vector2 PushSpeedVector(RectCollider ECSEngine, RectCollider second)
+        public Vector2 PushSpeedVector(RectCollider ECSEngine, RectCollider second)
         {
             Vector2 pushV = new Vector2(0,second.GetTop()) - ECSEngine.GetCenter();
             pushV.Normalize();
@@ -111,9 +109,31 @@ namespace ECSGame.Systems.ColiderSystem
             return new Vector2(0,pushV.Y) * pushOutSpeed;
         }
 
-        public static void AddCollider(Collider colliderItem)
+        /// <summary>
+        /// METHOD: Removes a collider from collider list
+        /// </summary>
+        /// <param name="colliderItem">Collider which needs to be removed</param>
+        public void RemoveCollider(Collider colliderItem)
+        {
+            colliders.Remove(colliderItem);
+        }
+
+        /// <summary>
+        /// Adds a collider to a list
+        /// </summary>
+        /// <param name="colliderItem">Collider which needs to be added</param>
+        public void AddCollider(Collider colliderItem)
         {
             colliders.Add(colliderItem);
+        }
+
+        /// <summary>
+        /// Adds a collider to a list
+        /// </summary>
+        /// <param name="colliderItem">Collider which needs to be added</param>
+        public Action<Collider> AddColliderAction()
+        {
+            return AddCollider;
         }
     }
 }

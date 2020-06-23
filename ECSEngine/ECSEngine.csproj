@@ -61,11 +61,15 @@
   <ItemGroup>
     <Compile Include="Component.cs" />
     <Compile Include="Entity\Entity.cs" />
+    <Compile Include="Inputs\IInputListener.cs" />
+    <Compile Include="Inputs\IInputPublisher.cs" />
+    <Compile Include="Inputs\KeyboardInputHandler.cs" />
     <Compile Include="IUpdatable.cs" />
     <Compile Include="IVDebuggable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rendering\Renderer.cs" />
     <Compile Include="Rendering\Sprite.cs" />
+    <Compile Include="SceneManager.cs" />
     <Compile Include="Scene\Scene.cs" />
     <Compile Include="Transform\Transform2D.cs" />
     <Compile Include="Utils\MathUtils.cs" />
