@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="ECSGame.Game1">
+    <Position X="9" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAEAASAEABAwAAEAAAAAAAAABAAAACAIAAAAACAAQ=</HashCode>
+      <FileName>Game1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ECSGame.Program">
+    <Position X="10.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ECSGame.Systems.ColiderSystem.CollisionSystem" BaseTypeListCollapsed="true">
+    <Position X="6.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAACQAAAAAAAAAAAAAAAAAAAgAAAAAEAEgAACAA=</HashCode>
+      <FileName>Systems\ColiderSystem\CollisionSystem.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ECSGame.Scenes.TestEndScene">
+    <Position X="8.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Scenes\TestEndScene.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ECSGame.Scenes.TestScene" BaseTypeListCollapsed="true">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAgBAACAAABAAAABAAAAAFAAAAAAAAEEgEAAAA=</HashCode>
+      <FileName>Scenes\TestScene.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ECSGame.Exceptions.InvalidSpawnException">
+    <Position X="6.5" Y="2.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Exceptions\InvalidSpawnException.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ECSGame.Component.Component">
+    <Position X="6.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Component\Component.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ECSGame.Component.Physics.Colliders.Collider">
+    <Position X="0.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAgEAgIAAAAAAoQECAAKgAQQIAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Component\Physics\Colliders\Collider.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ECSGame.Component.Physics.Colliders.RectCollider">
+    <Position X="2.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAACAAoAAAAAKgAQQIBAAAAAAAAAAAAEAAIA=</HashCode>
+      <FileName>Component\Physics\Colliders\RectCollider.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ECSGame.Component.Physics.RigidBodies.FixedSpeed">
+    <Position X="2.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAEAAAAEAAAQAAAAAAAA=</HashCode>
+      <FileName>Component\Physics\RigidBodies\FixedSpeed.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ECSGame.Component.Physics.RigidBodies.Rigidbody">
+    <Position X="0.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAgAAJAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Component\Physics\RigidBodies\Rigidbody.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ECSGame.Component.Transform.Transform2D">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAACAIAACAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Component\Transform\Transform2D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="ECSGame.Systems.ColiderSystem.ICollisionSystem">
+    <Position X="5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAACAA=</HashCode>
+      <FileName>Systems\ColiderSystem\ICollisionSystem.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

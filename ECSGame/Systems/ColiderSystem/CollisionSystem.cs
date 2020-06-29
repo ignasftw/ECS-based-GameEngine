@@ -9,7 +9,7 @@ namespace ECSGame.Systems.ColiderSystem
 {
     public class CollisionSystem : ECSEngine.IUpdatable, ICollisionSystem
     {
-        private float pushOutSpeed = 8, fixedDeltaTime = 0.01f, timer = 0;
+        private float pushOutSpeed = 7, fixedDeltaTime = 0.01f, timer = 0;
 
         private List<Collider> colliders = new List<Collider>();
 
@@ -36,52 +36,29 @@ namespace ECSGame.Systems.ColiderSystem
 
         public bool DoCollide(Collider c1, Collider c2)
         {
-            if(c1 is CircleCollider)
-            {
-                if (c2 is CircleCollider)
-                {
-                    return DoCollide((CircleCollider)c1, (CircleCollider)c2);
-                }
-            }
 
             if (c1 is RectCollider)
             {
                 if (c2 is RectCollider)
                 {
-                    
+
                     return DoCollide((RectCollider)c1, (RectCollider)c2);
                 }
             }
 
             return false;
         }
-
-        public bool DoCollide(CircleCollider c1, CircleCollider c2)
-        {
-            float dist = MathUtils.GetDistance(c1.GetCenter(), c2.GetCenter());
-            float radsum = c1.GetRadius() + c2.GetRadius();
-
-            return dist <= radsum;
-        }
-
         public bool DoCollide(RectCollider c1, RectCollider c2)
         {
             Rectangle r1 = new Rectangle((int)c1.GetCenter().X, (int)c1.GetCenter().Y, (int)c1.GetDimensions().X, (int)c1.GetDimensions().Y);
             Rectangle r2 = new Rectangle((int)c2.GetCenter().X, (int)c2.GetCenter().Y, (int)c2.GetDimensions().X, (int)c2.GetDimensions().Y);
 
-            
+
             return r1.Intersects(r2);
         }
 
         public Vector2 PushSpeedVector(Collider ECSEngine, Collider second)
         {
-            if(ECSEngine is CircleCollider)
-            {
-                if(second is CircleCollider)
-                {
-                    return PushSpeedVector((CircleCollider)ECSEngine, (CircleCollider)second);
-                }
-            }
 
             if (ECSEngine is RectCollider)
             {
@@ -94,18 +71,10 @@ namespace ECSGame.Systems.ColiderSystem
             throw new NotImplementedException();
         }
 
-        public Vector2 PushSpeedVector(CircleCollider ECSEngine, CircleCollider second)
-        {
-            Vector2 pushV = second.GetCenter() - ECSEngine.GetCenter();
-            pushV.Normalize();
-            return pushV * pushOutSpeed;
-        }
-
         public Vector2 PushSpeedVector(RectCollider ECSEngine, RectCollider second)
         {
             Vector2 pushV = new Vector2(0,second.GetTop()) - ECSEngine.GetCenter();
             pushV.Normalize();
-            //return new Vector2(0,-1) * pushOutSpeed;
             return new Vector2(0,pushV.Y) * pushOutSpeed;
         }
 

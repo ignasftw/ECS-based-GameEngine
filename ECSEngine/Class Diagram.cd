@@ -1,126 +1,91 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="ECSEngine.Utils.MathUtils" Collapsed="true">
-    <Position X="16" Y="7" Width="1.5" />
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="ECSEngine.SceneManager">
+    <Position X="12.25" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Utils\MathUtils.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAiAEIAAAAA=</HashCode>
+      <FileName>SceneManager.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ECSEngine.Entity.Entity" BaseTypeListCollapsed="true">
-    <Position X="3" Y="6.5" Width="1.5" />
+  <Class Name="ECSEngine.Component.Component">
+    <Position X="5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAACAAAAAJAAACAACAAABAAAAEAAAEAAAIAAAAAAA=</HashCode>
-      <FileName>Entity\Entity.cs</FileName>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Component.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
-  <Class Name="ECSEngine.Rendering.Renderer" Collapsed="true">
-    <Position X="1.25" Y="7.5" Width="1.5" />
+  <Class Name="ECSEngine.Component.Transform.Transform2D">
+    <Position X="5" Y="4.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAACAIAACAAAAAAAAAAAEAAAAAAA=</HashCode>
+      <FileName>Transform\Transform2D.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ECSEngine.Scene.Scene" BaseTypeListCollapsed="true">
+    <Position X="8.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAIIAAgAAABIAAgAAAAAAAAAIAAAAAAAAI=</HashCode>
+      <FileName>Scene\Scene.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ECSEngine.Rendering.Renderer">
+    <Position X="14" Y="1" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAwAAAAAAAAAAAAAAAAAAAAAAAACAAAA=</HashCode>
       <FileName>Rendering\Renderer.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ECSEngine.Scene.Scene" Collapsed="true" BaseTypeListCollapsed="true">
-    <Position X="4.75" Y="7.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAIAAAAAABIAAgAAAAAQAAAIAAAAAAAAA=</HashCode>
-      <FileName>Scene\Scene.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" Collapsed="true" />
-  </Class>
-  <Class Name="ECSEngine.Systems.ColiderSystem.CS" Collapsed="true">
-    <Position X="1.25" Y="6.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQAAAAAQAAAAAAAAAAAAAAAAAAAgAAAAAEAEgAAAAA=</HashCode>
-      <FileName>Systems\ColiderSystem\CS.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="ECSEngine.Systems.ColiderSystem.SATCollisionSystem" Collapsed="true">
-    <Position X="16" Y="7.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAQAABAAGAAAAAAAAIAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Systems\ColiderSystem\SATCollisionSystem.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="ECSEngine.Component.Component" Collapsed="true">
-    <Position X="7.25" Y="0.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
-      <FileName>Component\Component.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="ECSEngine.Component.Physics.Colliders.CircleCollider" Collapsed="true">
-    <Position X="11.75" Y="3.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>CAQAAAAAAAAAAoAAAAAKgAQQIAAAAAAAAAAAAAkAAAA=</HashCode>
-      <FileName>Component\Physics\Colliders\CircleCollider.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="ECSEngine.Component.Physics.Colliders.Collider" Collapsed="true">
-    <Position X="9.5" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAgEAgIAAAAAAoQECAAKgAQQIAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Component\Physics\Colliders\Collider.cs</FileName>
-    </TypeIdentifier>
-    <Lollipop Position="0.2" />
-  </Class>
-  <Class Name="ECSEngine.Component.Physics.Colliders.PolygonCollider" Collapsed="true">
-    <Position X="7.25" Y="3.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQAAAAAAACAAoAAAAAKgAQQIBAAAAAAAAAAAAEAAAA=</HashCode>
-      <FileName>Component\Physics\Colliders\PolygonCollider.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="ECSEngine.Component.Physics.Colliders.RectCollider" Collapsed="true">
-    <Position X="9.5" Y="3.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQAAAAAAACAAoAAAAAKgAQQIBAAAAAAAAAAAAEAAAA=</HashCode>
-      <FileName>Component\Physics\Colliders\RectCollider.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="ECSEngine.Component.Physics.RigidBodies.FixedSpeed" Collapsed="true">
-    <Position X="2.75" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAEAAAAEAAAQAAAAAAAA=</HashCode>
-      <FileName>Component\Physics\RigidBodies\FixedSpeed.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="ECSEngine.Component.Physics.RigidBodies.Rigidbody" Collapsed="true">
-    <Position X="5" Y="1.75" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAQAAAgAABAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
-      <FileName>Component\Physics\RigidBodies\Rigidbody.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="ECSEngine.Component.Rendering.Sprite" Collapsed="true">
-    <Position X="14" Y="1.75" Width="1.5" />
+  <Class Name="ECSEngine.Component.Rendering.Sprite">
+    <Position X="3" Y="4.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAgAAAAAAAAAQAAAAAgCAAAAAAAAAAAQ=</HashCode>
-      <FileName>Component\Rendering\Sprite.cs</FileName>
+      <FileName>Rendering\Sprite.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ECSEngine.Component.Transform.Transform2D" Collapsed="true">
-    <Position X="0.5" Y="1.75" Width="1.5" />
+  <Class Name="ECSEngine.Inputs.KeyboardInputHandler" BaseTypeListCollapsed="true">
+    <Position X="10.5" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAAAAAAACAIAACAAAAAAAAAAAEAAAAAAA=</HashCode>
-      <FileName>Component\Transform\Transform2D.cs</FileName>
+      <HashCode>AAQAAAAAAAAAEAAAAAAAAAAAAAACAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Inputs\KeyboardInputHandler.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
-  <Interface Name="ECSEngine.Component.IVDebuggable" Collapsed="true">
-    <Position X="3" Y="8.75" Width="1.5" />
+  <Class Name="ECSEngine.Entity.Entity" BaseTypeListCollapsed="true">
+    <Position X="7" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAIABEACCJIAACAQAAAARgAAAAIAAEIAAAAAAAAAA=</HashCode>
+      <FileName>Entity\Entity.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="ECSEngine.IVDebuggable">
+    <Position X="8.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>Component\IVDebuggable.cs</FileName>
+      <FileName>IVDebuggable.cs</FileName>
     </TypeIdentifier>
   </Interface>
-  <Interface Name="ECSEngine.IUpdatable" Collapsed="true">
-    <Position X="1.25" Y="8.75" Width="1.5" />
+  <Interface Name="ECSEngine.IUpdatable">
+    <Position X="10.5" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>IUpdatable.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ECSEngine.Inputs.IInputListener">
+    <Position X="10.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Inputs\IInputListener.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ECSEngine.Inputs.IInputPublisher">
+    <Position X="8.75" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Inputs\IInputPublisher.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />

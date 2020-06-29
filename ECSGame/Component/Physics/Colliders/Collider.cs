@@ -17,7 +17,6 @@ namespace ECSGame.Component.Physics.Colliders
         {
             rb = attachee.FindComponent<RigidBodies.Rigidbody>();           
             hasRB = rb != null;
-            //Systems.ColiderSystem.CS.AddCollider(this);
             ECSEngine.Rendering.Renderer.VDs.Add(this);
         }
 

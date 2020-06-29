@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace ECSGame.Scenes
 {
-    class TestEndScene : ECSEngine.Scene.Scene
+    public class TestEndScene : ECSEngine.Scene.Scene
     {
         //DECLARE a ContentManager which would allow to load Texture2D, call it '_content'
         ContentManager _content;

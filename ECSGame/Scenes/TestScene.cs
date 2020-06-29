@@ -13,8 +13,9 @@ namespace ECSGame.Scenes
     {
         //DECLARE a ContentManager which would allow to load Texture2D, call it '_content'
         ContentManager _content;
+        public static int WarriorAmount = 200;
         //DECLARE an array of entities which will allow to store multiple entities
-        private ECSEngine.Entity.Entity[] _warriors = new ECSEngine.Entity.Entity[70];
+        private ECSEngine.Entity.Entity[] _warriors = new ECSEngine.Entity.Entity[WarriorAmount];
         //DECLARE an int which will store screen's width, call it '_screenWidth', set default to '800'
         private int _screenWidth = 800;
         //DECLARE an int which will store screen's height, call it '_screenHeight', set default to '600'
@@ -23,7 +24,9 @@ namespace ECSGame.Scenes
         private readonly int _spawntime = 10;
         //DECLARE an tin which will count time until spawntime, call it '_stime'
         private int _stime = 0;
+        //DECLARE an Action which would send a collider component to a system,call it '_addCollider'
         private Action<Collider> _addCollider;
+
 
         /// <summary>
         /// Constructor of the TestScene
@@ -93,8 +96,8 @@ namespace ECSGame.Scenes
                 )
             );
 
-            int xposition = 0;
-            int yposition = -100;
+            int xposition = 100;
+            int yposition = 400;
             //--------------------------------------------------
             // Adding multiple entities
             //--------------------------------------------------
@@ -102,12 +105,12 @@ namespace ECSGame.Scenes
             {
                 if (xposition > 1100)
                 {
-                    xposition = 0;
-                    yposition -= 10;
+                    xposition = 100;
+                    //yposition -= 10;
                 }
                 else
                 {
-                    xposition += 10;
+                    xposition += 2;
                 }
                 _entities[i] =
                 AddEntity(
@@ -134,7 +137,7 @@ namespace ECSGame.Scenes
                 );
 
                 _entities[i].AddComponent(
-                    new Component.Physics.Colliders.RectCollider(
+                    new RectCollider(
                         _entities[i],
                         1f,
                         20f,
@@ -205,11 +208,6 @@ namespace ECSGame.Scenes
                     )
                 );
 
-                bullet.AddComponent(
-                new Rigidbody(
-                    bullet
-                )
-            );
                 _stime = 0;
             }
             else

@@ -103,8 +103,8 @@ namespace ECSGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            //If the entity count exceeds 120, then switch the scenes
-            if (_curScene._entities.Count > 80)
+            //If the entity count exceeds 200, then switch the scenes
+            if (_curScene._entities.Count > Scenes.TestScene.WarriorAmount+50)
             {
                 //Unsubscribe the spacebar event to prevent bullet spawning
                 _spaceBarHandler.Unsubscribe(_curScene as IInputListener);

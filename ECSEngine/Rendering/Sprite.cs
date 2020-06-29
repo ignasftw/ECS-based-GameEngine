@@ -5,7 +5,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 
-/// <summary>
+///<summary>
+/// This class was used for reference of how rendering was implemented 
 /// Mamatosen. 2019. Mamatosen/monogame-ecs-base. [Online]. [7 January 2020]. 
 /// Available from: https://github.com/mamatosen/monogame-ecs-base
 /// </summary>

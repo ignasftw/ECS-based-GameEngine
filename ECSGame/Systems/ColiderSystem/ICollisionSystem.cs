@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ECSGame.Systems.ColiderSystem
 {
-    interface ICollisionSystem
+    public interface ICollisionSystem
     {
         /// <summary>
         /// METHOD: Removes a collider from collider list

@@ -10,7 +10,6 @@ namespace ECSGame.Component.Physics.Colliders
     {
         private Vector2 _center;
         private float _width, _height;
-        private Action<Collider> _addCollider;
 
         public RectCollider(ECSEngine.Entity.Entity attachee, float width, float height, Vector2 center, Action<Collider> addCollider) : base(attachee) 
         {

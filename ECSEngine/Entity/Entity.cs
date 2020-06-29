@@ -23,7 +23,6 @@ namespace ECSEngine.Entity
         {
             _components = new List<Component.Component>();
 
-            //_components = new Dictionary<Type, Component.Component>();
             this._name = name;
             this._tag = tag;
             this._transform = new ECSEngine.Component.Transform.Transform2D(position, scale, this);
@@ -36,7 +35,7 @@ namespace ECSEngine.Entity
 
         public void Update(GameTime gt)
         {
-            CallComponentsUpdates(gt);
+
         }
 
         /// <summary>

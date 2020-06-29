@@ -23,7 +23,8 @@ namespace ECSEngine.Scene
 
         public virtual void Update(GameTime gt)
         {
-            CallUpdatesByComponents(gt);
+            //CallUpdatesByComponents(gt);
+            CallEntitiesUpdates(gt);
         }
 
         public Entity.Entity AddEntity(ECSEngine.Entity.Entity entity)
