@@ -8,11 +8,16 @@ namespace ECSGame.Component
 {
     public abstract class Component : ECSEngine.IUpdatable
     {
-        public Entity attachee;
+        //DECLARE an Entity which contains this component, call it '_attachee'
+        public Entity _attachee;
 
+        /// <summary>
+        /// Constructor: Initializes a component
+        /// </summary>
+        /// <param name="attachee"></param>
         public Component(Entity attachee)
         {
-            this.attachee = attachee;
+            this._attachee = attachee;
         }
 
         public abstract void Update(GameTime gt);

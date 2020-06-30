@@ -8,24 +8,24 @@ namespace ECSGame.Component.Physics.Colliders
 {
     public abstract class Collider : ECSEngine.Component.Component, ECSEngine.IVDebuggable
     {
-        public static bool renderColliders = true;
+        //DECLARE a bool which tells if the colliders has RigidBody, call it '_hasRB'
+        protected bool _hasRB;
+        //DECLARE a Rigidbody which contains a reference to a RigidBody, call it '_rb'
+        protected RigidBodies.Rigidbody _rb;
 
-        protected bool hasRB, lc, rc, dc, uc;
-        protected RigidBodies.Rigidbody rb;
-
+        /// <summary>
+        /// CONSTRUCTOR: Initializes the collider's component
+        /// </summary>
+        /// <param name="attachee">Entity which contains this component</param>
         public Collider(ECSEngine.Entity.Entity attachee) : base(attachee)
         {
-            rb = attachee.FindComponent<RigidBodies.Rigidbody>();           
-            hasRB = rb != null;
-            ECSEngine.Rendering.Renderer.VDs.Add(this);
+            _rb = attachee.FindComponent<RigidBodies.Rigidbody>();           
+            _hasRB = _rb != null;
         }
 
         abstract protected Vector2 GetGlobalCenter();
 
-        abstract public float GetLeft(); // min x
-        abstract public float GetRight(); // max x
         abstract public float GetTop(); // min y
-        abstract public float GetBottom(); // max y
         abstract public Vector2 GetCenter();
         abstract public void Draw(SpriteBatch sb);
         abstract public void Collide(int dir, Vector2 pushVector);

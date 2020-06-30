@@ -72,7 +72,6 @@
     <Compile Include="SceneManager.cs" />
     <Compile Include="Scene\Scene.cs" />
     <Compile Include="Transform\Transform2D.cs" />
-    <Compile Include="Utils\MathUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

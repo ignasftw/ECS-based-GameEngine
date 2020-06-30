@@ -13,7 +13,8 @@ namespace ECSGame.Scenes
     {
         //DECLARE a ContentManager which would allow to load Texture2D, call it '_content'
         ContentManager _content;
-        public static int WarriorAmount = 200;
+        //DECLARE a static int, this allows to choose how many entities to create into a simulation call it 'WarriorAmount'
+        public readonly static int WarriorAmount = 200;
         //DECLARE an array of entities which will allow to store multiple entities
         private ECSEngine.Entity.Entity[] _warriors = new ECSEngine.Entity.Entity[WarriorAmount];
         //DECLARE an int which will store screen's width, call it '_screenWidth', set default to '800'
@@ -49,12 +50,11 @@ namespace ECSGame.Scenes
         /// </summary>
         private void InitializeDemoScene()
         {
+            //Load textures required for this scene
             Texture2D entitytexture = _content.Load<Texture2D>("entity");
             Texture2D bg = _content.Load<Texture2D>("Wallpaper2");
 
-            //--------------------------------------------------
-            // Adding the background
-            //--------------------------------------------------
+            //Create a background entity
             ECSEngine.Entity.Entity background =
             AddEntity(
                 new ECSEngine.Entity.Entity(
@@ -65,6 +65,7 @@ namespace ECSGame.Scenes
                 )
             );
 
+            //Add sprite component to a background
             background.AddComponent(
                 new Sprite(
                     bg,
@@ -72,9 +73,8 @@ namespace ECSGame.Scenes
                     0
                 )
             );
-            //--------------------------------------------------
-            // Adding the floor
-            //--------------------------------------------------
+
+            //Add floor collision entity
             ECSEngine.Entity.Entity entbottom =
                 AddEntity(
                     new ECSEngine.Entity.Entity(
@@ -85,7 +85,7 @@ namespace ECSGame.Scenes
                     )
                 );
 
-
+            //Add rectangle collider component
             entbottom.AddComponent(
                 new RectCollider(
                     entbottom,
@@ -96,23 +96,27 @@ namespace ECSGame.Scenes
                 )
             );
 
+            //Declare an int for X position which will spread the spawn warriors
             int xposition = 100;
+            //Declare an int for Y position which will spread the spawn warriors
             int yposition = 400;
-            //--------------------------------------------------
-            // Adding multiple entities
-            //--------------------------------------------------
+
+            //For the lenght of array
             for (int i = 0; i < _warriors.Length; i++)
             {
+                //IF xposition is larger than 1100
                 if (xposition > 1100)
                 {
+                    //Reset X position
                     xposition = 100;
-                    //yposition -= 10;
                 }
                 else
                 {
+                    //Increment x Position by 2
                     xposition += 2;
                 }
-                _entities[i] =
+                //Create a warrior within the calculated position
+                _warriors[i] =
                 AddEntity(
                     new ECSEngine.Entity.Entity(
                         new Vector2(30 + xposition, yposition - i),
@@ -122,23 +126,26 @@ namespace ECSGame.Scenes
                     )
                 );
 
-                _entities[i].AddComponent(
+                //Add a sprite rendering component
+                _warriors[i].AddComponent(
                 new Sprite(
                     entitytexture,
-                    _entities[i],
+                    _warriors[i],
                     index: 0
                     )
                 );
 
-                _entities[i].AddComponent(
+                //Add a RigidBody component
+                _warriors[i].AddComponent(
                     new Rigidbody(
-                        _entities[i]
+                        _warriors[i]
                     )
                 );
 
-                _entities[i].AddComponent(
+                //Add a Rectangle Collider Component
+                _warriors[i].AddComponent(
                     new RectCollider(
-                        _entities[i],
+                        _warriors[i],
                         1f,
                         20f,
                         new Vector2(25f, 25f),
@@ -167,11 +174,13 @@ namespace ECSGame.Scenes
         /// </summary>
         void SpawnBullet()
         {
+            //If the settime is larger than spawn time
             if (_stime >= _spawntime)
             {
+                //Load the bullet texture
                 Texture2D bullettexture = _content.Load<Texture2D>("bullet");
                 ECSEngine.Entity.Entity bullet;
-
+                //Create a new bullet on the left of the sceen
                 bullet =
                 AddEntity(
                     new ECSEngine.Entity.Entity(
@@ -181,7 +190,7 @@ namespace ECSGame.Scenes
                         tag: 0
                     )
                 );
-
+                //Add a sprite rendering component
                 bullet.AddComponent(
                 new Sprite(
                     bullettexture,
@@ -189,7 +198,7 @@ namespace ECSGame.Scenes
                     index: 0
                     )
                 );
-
+                //Add a constant speed component to a bullet
                 bullet.AddComponent(
                     new FixedSpeed(
                         bullet,
@@ -197,7 +206,7 @@ namespace ECSGame.Scenes
                         0
                     )
                 );
-
+                //Add a rectangular collider
                 bullet.AddComponent(
                     new Component.Physics.Colliders.RectCollider(
                         bullet,
@@ -207,11 +216,13 @@ namespace ECSGame.Scenes
                         _addCollider
                     )
                 );
-
+                //Set timer to '0'
                 _stime = 0;
             }
+            //Else the timer is not ready to spawn a bullet
             else
             {
+                //Increment by 1
                 _stime++;
             }
         }

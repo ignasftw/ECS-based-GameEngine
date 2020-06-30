@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using ECSEngine.Utils;
 using ECSGame.Component.Physics.Colliders;
 using Microsoft.Xna.Framework;
 
@@ -9,23 +8,36 @@ namespace ECSGame.Systems.ColiderSystem
 {
     public class CollisionSystem : ECSEngine.IUpdatable, ICollisionSystem
     {
-        private float pushOutSpeed = 7, fixedDeltaTime = 0.01f, timer = 0;
+        //DECLARE a float which will tell the the speed after collider bounces off, call it '_pushOutSpeed'
+        private float _pushOutSpeed = 7;
+        //DECLARE a float for delta time, call it '_fixedDeltaTime'
+        private float _fixedDeltaTime = 0.01f;
+        //DECLARE a float for timer, call it '_timer'
+        private float _timer = 0;
+        //DECLARE a list of Colliders which will contain all added colliders
+        private List<Collider> _colliders = new List<Collider>();
 
-        private List<Collider> colliders = new List<Collider>();
-
+        /// <summary>
+        /// METHOD: Checks all colliders added to a scene
+        /// </summary>
+        /// <param name="gt"></param>
         public void Update(GameTime gt)
         {
-            timer += (float)gt.ElapsedGameTime.TotalSeconds;
-            if (timer >= fixedDeltaTime)
+            _timer += (float)gt.ElapsedGameTime.TotalSeconds;
+            //IF the collision did not happen on this Delta Time
+            if (_timer >= _fixedDeltaTime)
             {
-                timer = 0;
-                foreach (Collider c1 in colliders)
+                //Reset the timer
+                _timer = 0;
+                //Foreach collider in list
+                foreach (Collider c1 in _colliders)
                 {
-                    foreach (Collider c2 in colliders)
+                    //Foreach another collider in the list
+                    foreach (Collider c2 in _colliders)
                     {
+                        //Check if colliders are not the same and if they do not collide
                         if(c1 != c2 && DoCollide(c1, c2))
                         {
-                            // TODO: redundancy -> check if it has rb then do these calculations
                             c1.Collide(0, PushSpeedVector(c1, c2));
                             c1.Collide(0, PushSpeedVector(c2, c1));
                         }
@@ -75,7 +87,7 @@ namespace ECSGame.Systems.ColiderSystem
         {
             Vector2 pushV = new Vector2(0,second.GetTop()) - ECSEngine.GetCenter();
             pushV.Normalize();
-            return new Vector2(0,pushV.Y) * pushOutSpeed;
+            return new Vector2(0,pushV.Y) * _pushOutSpeed;
         }
 
         /// <summary>
@@ -84,7 +96,7 @@ namespace ECSGame.Systems.ColiderSystem
         /// <param name="colliderItem">Collider which needs to be removed</param>
         public void RemoveCollider(Collider colliderItem)
         {
-            colliders.Remove(colliderItem);
+            _colliders.Remove(colliderItem);
         }
 
         /// <summary>
@@ -93,7 +105,7 @@ namespace ECSGame.Systems.ColiderSystem
         /// <param name="colliderItem">Collider which needs to be added</param>
         public void AddCollider(Collider colliderItem)
         {
-            colliders.Add(colliderItem);
+            _colliders.Add(colliderItem);
         }
 
         /// <summary>

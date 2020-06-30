@@ -25,7 +25,7 @@ namespace ECSEngine.UnitTests
             //Act
             CreatingAnEntity(curScene, _colliderSystem);
             //Assert
-            Assert.IsTrue(curScene._entities.Count > 0);
+            Assert.IsTrue(curScene.EntityCount > 0);
         }
         [TestMethod]
         public void IsSuccessfullyCreated_NotCreatingEntity_False()
@@ -37,7 +37,7 @@ namespace ECSEngine.UnitTests
             //Same as first one but not running, to make sure that the scene is initially empty
             //Assert
             //If the current scene has no entities it should return false
-            Assert.IsFalse(curScene._entities.Count > 0);
+            Assert.IsFalse(curScene.EntityCount > 0);
         }
         [TestMethod]
         public void HadSceneChanged_ChangingTheScene_EqualToZero()
@@ -61,7 +61,7 @@ namespace ECSEngine.UnitTests
             currentScene = sceneManager.SetScene("TestScene2");
             //Assert
             //If scenes has changed successfully then the entity count should be zero
-            Assert.AreEqual(0, currentScene._entities.Count);
+            Assert.AreEqual(0, currentScene.EntityCount);
         }
         [TestMethod]
         public void HadSceneChanged_SceneHasNotChanged_EqualToOne()
@@ -83,7 +83,7 @@ namespace ECSEngine.UnitTests
             CreatingAnEntity(currentScene, _colliderSystem);
             //Assert
             //If scenes has changed successfully then the entity count should be zero
-            Assert.AreEqual(1, currentScene._entities.Count);
+            Assert.AreEqual(1, currentScene.EntityCount);
         }
         void CreatingAnEntity(Scene.Scene curScene, ECSGame.Systems.ColiderSystem.CollisionSystem colliderSystem)
         {

@@ -63,7 +63,6 @@
     <Compile Include="Component\Physics\Colliders\RectCollider.cs" />
     <Compile Include="Component\Physics\RigidBodies\FixedSpeed.cs" />
     <Compile Include="Component\Physics\RigidBodies\Rigidbody.cs" />
-    <Compile Include="Component\Transform\Transform2D.cs" />
     <Compile Include="Exceptions\InvalidSpawnException.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="Program.cs" />
@@ -72,7 +71,6 @@
     <Compile Include="Scenes\TestScene.cs" />
     <Compile Include="Systems\ColiderSystem\CollisionSystem.cs" />
     <Compile Include="Systems\ColiderSystem\ICollisionSystem.cs" />
-    <Compile Include="Systems\ColiderSystem\SATCollisionSystem.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework">

@@ -23,12 +23,16 @@ namespace ECSGame
         private ICollisionSystem _collisionSystem;
         //DECLARE a Scene which will tell the current scene, call it '_curScene'
         private ECSEngine.Scene.Scene _curScene;
-
+        //DECLARE a SceneManager which will manage scenes, call it '_sceneManager'
         private ECSEngine.SceneManager _sceneManager;
+        //DECLARE an int tell screen's Width size, call it '_screenWidth'
+        private int _screenWidth;
+        //DECLARE an int tell screen's Height size, call it '_screenHeight'
+        private int _screenHeight;
 
-        private int ScreenWidth;
-        private int ScreenHeight;
-
+        /// <summary>
+        /// Constructor: Initializes the simulation
+        /// </summary>
         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
@@ -46,9 +50,9 @@ namespace ECSGame
         protected override void Initialize()
         {
             //Set the Sceen's Height dimensions in pixels
-            ScreenHeight = GraphicsDevice.Viewport.Height;
+            _screenHeight = GraphicsDevice.Viewport.Height;
             //Set the Sceen's Width dimensions in pixels
-            ScreenWidth = GraphicsDevice.Viewport.Width;
+            _screenWidth = GraphicsDevice.Viewport.Width;
             //Initialize SceneManager
             _sceneManager = new ECSEngine.SceneManager();
             //Initialize InputManager
@@ -58,10 +62,11 @@ namespace ECSGame
 
             //Initialize empty list of IUpdatables
             _updateable = new List<ECSEngine.IUpdatable>();
-
             //Initialize and store a test scene
-            Scenes.TestScene testScene = new Scenes.TestScene(_collisionSystem.AddCollider, Content, ScreenWidth, ScreenHeight);
+            Scenes.TestScene testScene = new Scenes.TestScene(_collisionSystem.AddCollider, Content, _screenWidth, _screenHeight);
+            //Subscribe testScene to the InputHandler
             _spaceBarHandler.Subscribe(testScene);
+            //Add Scene to a scene manager's list
             _sceneManager.AddScene("TestScene", testScene);
             //Set the initial Scene
             _curScene = _sceneManager.SetScene("TestScene");
@@ -104,7 +109,7 @@ namespace ECSGame
                 Exit();
 
             //If the entity count exceeds 200, then switch the scenes
-            if (_curScene._entities.Count > Scenes.TestScene.WarriorAmount+50)
+            if (_curScene.EntityCount > Scenes.TestScene.WarriorAmount+50)
             {
                 //Unsubscribe the spacebar event to prevent bullet spawning
                 _spaceBarHandler.Unsubscribe(_curScene as IInputListener);
@@ -114,6 +119,7 @@ namespace ECSGame
                 _curScene = _sceneManager.SetScene("TestEndScene");
             }
 
+            //Foreach system in the list call Update
             foreach (ECSEngine.IUpdatable system in _updateable)
             {
                 system.Update(gameTime);

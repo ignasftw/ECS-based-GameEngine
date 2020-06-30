@@ -18,11 +18,19 @@ namespace ECSEngine.Inputs
             _listeners = new List<IInputListener>();
         }
 
+        /// <summary>
+        /// METHOD: Subscribe to a handler to know when a key was pressed
+        /// </summary>
+        /// <param name="listener">IInputListener, which contains required methods</param>
         public void Subscribe(IInputListener listener)
         {
             _listeners.Add(listener);
         }
 
+        /// <summary>
+        /// METHOD: Unsubscribe from a handler after it is not required
+        /// </summary>
+        /// <param name="listener">IInputListener, which contains required methods</param>
         public void Unsubscribe(IInputListener listener)
         {
             _listeners.Remove(listener);

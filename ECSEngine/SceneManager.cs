@@ -29,7 +29,6 @@ namespace ECSEngine
         /// <param name="sceneName">Name of the scene which needs to be removed</param>
         public void RemoveScene(string sceneName)
         {
-            _scenes[sceneName]._components.Clear();
             _scenes.Remove(sceneName);
         }
 

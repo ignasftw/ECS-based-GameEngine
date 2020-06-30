@@ -8,6 +8,7 @@ namespace ECSEngine.Component
 {
     public abstract class Component : IUpdatable
     {
+        //DECLARE an entity which attaches this component
         public Entity.Entity attachee;
 
         public Component(Entity.Entity attachee)
